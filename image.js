@@ -200,7 +200,10 @@ class CacheableImage extends React.Component {
     renderCache() {
         const { children, defaultSource, activityIndicatorProps, ...props } = this.props;
         return (
-            <ResponsiveImage {...props} source={{uri: 'file://'+this.state.cachedImagePath}}>
+            <ResponsiveImage
+            innerRef={image => this.image = image}
+            {...props}
+            source={{uri: 'file://'+this.state.cachedImagePath}}>
             {children}
             </ResponsiveImage>
         );
@@ -209,7 +212,9 @@ class CacheableImage extends React.Component {
     renderLocal() {
         const { children, defaultSource, activityIndicatorProps, ...props } = this.props;
         return (
-            <ResponsiveImage {...props}>
+            <ResponsiveImage
+            innerRef={image => this.image = image}
+            {...props}>
             {children}
             </ResponsiveImage>
         );
@@ -222,6 +227,10 @@ class CacheableImage extends React.Component {
             {children}
             </CacheableImage>
         );
+    }
+
+    setNativeProps(nativeProps) {
+        this.image.setNativeProps(nativeProps);
     }
 }
 
